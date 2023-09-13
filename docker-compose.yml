@@ -1,16 +1,18 @@
 version: "3.0"
 
 services:
-  hadoop:
+  hadoop-master:
+    container_name: hadoop-master
     image: sequenceiq/hadoop-docker:2.7.0
-    ports:
-      - 9864:9864
-      - 9870:9870
-      - 8088:8088
-      - 9000:9000
     volumes:
-      - sources/:/usr/local/hadoop/share/hadoop/mapreduce/sources/
-    # hostname: jose
+      - ./hadoop/:/usr/local/hadoop/etc/hadoop/
 
-volumes:
-  sources:
+  hadoop-slave-1:
+    image: sequenceiq/hadoop-docker:2.7.0
+    volumes:
+      - ./hadoop/:/usr/local/hadoop/etc/hadoop/
+
+  hadoop-slave-2:
+    image: sequenceiq/hadoop-docker:2.7.0
+    volumes:
+      - ./hadoop/:/usr/local/hadoop/etc/hadoop/

@@ -7,6 +7,7 @@ docker run -it sequenceiq/hadoop-docker:2.7.0 /etc/bootstrap.sh -bash
 
 # 3. entra no app
 # http://172.17.0.2:50070/dfshealth.html#tab-overview
+# SE O CONTAINER TIVER FUNCIONANDO MAS O LINK NÃO, ENTRA NO CONTAINER E FAZER UM `ifconfig` PRA PEGAR O IP CERTO
 
 # a essa altura, do hadoop ta rodando na sua maquina :D
 
