@@ -1,6 +1,6 @@
   <configuration>
       <property>
           <name>fs.defaultFS</name>
-          <value>hdfs://0478a093e97b:9000</value>
+          <value>hdfs://renato:9000</value>
       </property>
   </configuration>
