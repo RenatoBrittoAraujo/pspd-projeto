@@ -1,33 +1,40 @@
 version: "3.0"
 
+networks:
+  hadoop_net:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
 services:
   hadoop-master:
     container_name: hadoop-master
     image: sequenceiq/hadoop-docker:2.7.0
     volumes:
       - ./hadoop_conf/:/usr/local/hadoop/etc/hadoop/
-    # ports:
-    #   - 50070:50070 # Name Node
-    #   - 19888:19888 # Resource Manager
-    #   - 8088:8088 # MapReduce JobHistory Server
-    # networks:
-    #   - hadoop_net
-    network_mode: host
+    ports:
+      - 50070:50070 # Name Node
+      - 19888:19888 # Resource Manager
+      - 8088:8088 # MapReduce JobHistory Server
+    networks:
+      hadoop_net:
+          ipv4_address: 172.20.0.2
+    # network_mode: host
   
   hadoop-slave-1:
+    container_name: hadoop-slave-1
     image: sequenceiq/hadoop-docker:2.7.0
     volumes:
       - ./hadoop_conf/:/usr/local/hadoop/etc/hadoop/
+    networks:
+        hadoop_net:
+            ipv4_address: 172.20.0.3
 
-
-  # hadoop-slave-2:
-  #   image: sequenceiq/hadoop-docker:2.7.0
-  #   volumes:
-  #     - ./hadoop_conf/:/usr/local/hadoop/etc/hadoop/
-    # networks:
-    #   - hadoop_net
-  
-networks:
-  hadoop_net:
-    external:
-      name: hadoop_net
+  hadoop-slave-2:
+    container_name: hadoop-slave-2
+    image: sequenceiq/hadoop-docker:2.7.0
+    volumes:
+      - ./hadoop_conf/:/usr/local/hadoop/etc/hadoop/
+    networks:
+      hadoop_net:
+          ipv4_address: 172.20.0.4
