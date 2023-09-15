@@ -11,6 +11,9 @@ sudo docker cp hadoop-master:/root/.ssh/id_rsa.pub master.pub
 sudo docker cp master.pub hadoop-slave-1:/root/.ssh/authorized_keys
 sudo docker cp master.pub hadoop-slave-2:/root/.ssh/authorized_keys
 
+# formata o hdfs
 sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/bin/hdfs namenode -format'
+
+# reinicia dfs
 sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/sbin/stop-dfs.sh'
 sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/sbin/start-dfs.sh'
