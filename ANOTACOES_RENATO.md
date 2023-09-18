@@ -31,7 +31,7 @@ arquivos HDFS, funcionamento geral aplicações
 5. Adicionei o arquivo no sistema pelo comando `$HADOOP_PREFIX/bin/hdfs dfs -put aa`
 6. Ao todo, 2.12MB de memória começaram a ser utilizados no cluster (ou `1.06 * 2`)
 
-**segunda alteração:** Aumenta o `dfs.replication` de `2` para `3`.
+Dai aumenta o `dfs.replication` de `2` para `3`.
 
 Seguindo os passos anteriores, esperamos agora `1.06 * 3` MB. 
 
