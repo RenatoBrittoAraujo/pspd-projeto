@@ -53,6 +53,31 @@ Seguindo os passos anteriores, esperamos agora `1.06 * 3` MB.
 
 **Metodologia:** escreve o codigo java pra fazer isso, faz um `.jar` do codigo e roda ele no cluster.
 
+Inicialmente vou tentar compilar e rodar o wordcount na pasta `sources/`.
+Vou levar o código pro container, compilar e rodar o comando do mapreduce
+
+1. Copiei com `sudo docker cp sources/WordCount/ hadoop-slave-1:/WordCount`
+2. Entrei no container hadoop-slave-1 com `sudo docker-compose exec hadoop-slave-1 bash`
+3. ...
+
+Instruções que achei na net para compilar:
+$ hdfs dfs -mkdir /input
+$ hdfs dfs -put ./input/* /input
+$ cd src/main/java
+$ hadoop com.sun.tools.javac.Main *.java
+$ jar cf recommender.jar *.class
+$ hadoop jar recommender.jar Driver /input /output/userRating /output/cooccurrenceGenerator /output/cooccurrenceNormal /output/userAverageRating /output/cellMultiplication /output/cellSum
+
+Vou tentar utilizar o maven, por causa do arquivo `pom.xml` que fica no código do WordCount
+
+pra isso vamos intalar com `sudo yum install maven java-1.8.0-openjdk`
+
+
+```
+cd src/main/java
+hadoop com.sun.tools.javac.Main *.java
+```
+
 
 
 ## Atividade 4 - Teste de tolerância a faltas e escalabilidade da aplicação

@@ -26,6 +26,7 @@ services:
     image: sequenceiq/hadoop-docker:2.7.0
     volumes:
       - ./hadoop_conf/:/usr/local/hadoop/etc/hadoop/
+      - ./sources/WordCount/:/WordCount # Facilitate inserting code into system
     networks:
         hadoop_net:
             ipv4_address: 172.20.0.3
