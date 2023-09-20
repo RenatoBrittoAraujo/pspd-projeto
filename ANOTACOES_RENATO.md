@@ -53,6 +53,8 @@ Seguindo os passos anteriores, esperamos agora `1.06 * 3` MB.
 
 **Metodologia:** escreve o codigo java pra fazer isso, faz um `.jar` do codigo e roda ele no cluster.
 
+<!-- ref https://saturncloud.io/blog/how-to-get-hadoop-wordcount-example-working/ -->
+
 1. Copia com `sudo docker cp sources/WordCount/ hadoop-slave-1:/WordCount`
 
 2. Entra no container hadoop-slave-1 com `sudo docker-compose exec hadoop-slave-1 bash`
