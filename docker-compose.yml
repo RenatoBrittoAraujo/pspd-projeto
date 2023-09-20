@@ -27,6 +27,11 @@ services:
     volumes:
       - ./hadoop_conf/:/usr/local/hadoop/etc/hadoop/
       - ./sources/WordCount/:/WordCount # Facilitate inserting code into system
+      - ./word_generator/:/word_generator/ # Facilitate inserting code into system
+    ports:
+      - 50071:50070 # Name Node
+      - 19889:19888 # Resource Manager
+      - 8089:8088 # MapReduce JobHistory Server
     networks:
         hadoop_net:
             ipv4_address: 172.20.0.3

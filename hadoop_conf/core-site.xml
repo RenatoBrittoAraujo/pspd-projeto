@@ -1,6 +1,6 @@
   <configuration>
       <property>
           <name>fs.defaultFS</name>
-          <value>hdfs://d28033fafec8:9000</value>
+          <value>hdfs://ef62669fdeed:9000</value>
       </property>
   </configuration>

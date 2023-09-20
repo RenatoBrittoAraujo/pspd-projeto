@@ -76,7 +76,38 @@ Seguindo os passos anteriores, esperamos agora `1.06 * 3` MB.
 
 ## Atividade 4 - Teste de tolerância a faltas e escalabilidade da aplicação
 
-**Tarefa:** 
+**Tarefa:** Testar tolerância de erros do sistema com grande input
 
-**Metodologia:** 
+**Metodologia:** Será criado um input grande e testado o sistema quando um ou dois nodes slaves e o master caíram.
+
+1. Crie um arquivo de texto com 15MB `cd word_generator; pip install -r requirements.txt; python wordgenerator.py`
+2. Entre no container `sudo docker-compose exec hadoop-slave-1 bash`
+3. Crie a pasta `input` no hdfs com `$HADOOP_PREFIX/bin/hdfs dfs -mkdir \input`
+4. Adiciona o arquivo de texto `/input/input.txt` no hdfs com `$HADOOP_PREFIX/bin/hdfs dfs -put ./wordgenerator/large_lorem.txt /input/input.txt`
+5. Entre na pasta `WordCount` com `cd WordCount`
+6. Compile o código `javac -classpath ${HADOOP_PREFIX}/share/hadoop/common/hadoop-common-2.7.0.jar:${HADOOP_PREFIX}/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.7.0.jar:${HADOOP_PREFIX}/share/hadoop/common/lib/* Wordcount.java`
+7. Criar .jar do java compilado `jar cvf wordcount.jar *.class`
+8. Roda o .jar `$HADOOP_PREFIX/bin/hadoop jar wordcount.jar Wordcount /input/input.txt output`
+
+#### Condição adversa 1: Um nó slave caiu
+
+1. Roda o código
+2. Derruba o container `sudo docker-compose down hadoop-slave-1`
+3. Acompanhar logs no `http://0.0.0.0:8088`
+
+#### Condição adversa 2: Dois nó slave cairam
+
+1. Restaurar todos os containers
+2. Roda o código
+3. Derruba o container `sudo docker-compose down hadoop-slave-1`
+4. Derruba o container `sudo docker-compose down hadoop-slave-2`
+5. Acompanhar logs no `http://0.0.0.0:8088`
+
+#### Condição adversa 3: Nó master caiu
+
+
+1. Restaurar todos os containers
+2. Roda o código
+4. Derruba o container `sudo docker-compose down hadoop-master`
+5. Acompanhar logs no `http://0.0.0.0:8088` (que é a porta pra web interface do slave-1)
 
