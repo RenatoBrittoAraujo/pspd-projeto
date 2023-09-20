@@ -1,6 +1,6 @@
 from lorem.text import TextLorem
 
-FILE_SIZE = 1500000
+FILE_SIZE = 150000000
 print("starting file generation")
 lorem = TextLorem()
 

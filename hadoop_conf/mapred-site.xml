@@ -23,11 +23,17 @@
 
 <property>
         <name>mapreduce.map.memory.mb</name>
-        <value>256</value>
+        <value>3000</value>
 </property>
 
 <property>
         <name>mapreduce.reduce.memory.mb</name>
-        <value>256</value>
+        <value>3000</value>
 </property>
+
+<property>
+        <name>mapred.child.java.opts</name>
+        <value>-Xmx4096m</value>
+</property>
+
 </configuration>
