@@ -3,7 +3,7 @@ pip install -r requirements.txt
 python3 wordgenerator.py
 
 sudo docker-compose exec hadoop-slave-1 /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -mkdir /input'
-sudo docker-compose exec hadoop-slave-1 /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -rm /output/*'
+sudo docker-compose exec hadoop-slave-1 /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -rm /user/root/output/*'
 sudo docker-compose exec hadoop-slave-1 /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -rmdir /user/root/output'
 
 sudo docker-compose exec hadoop-slave-1 /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -rm /input/input.txt'
