@@ -91,14 +91,14 @@ Seguindo os passos anteriores, esperamos agora `1.06 * 3` MB.
 
 #### Condição adversa 1: Um nó slave caiu
 
-1. Roda o código
+1. Roda o código com `./passo_4.sh`
 2. Derruba o container `sudo docker-compose down hadoop-slave-1`
 3. Acompanhar logs no `http://0.0.0.0:8088`
 
 #### Condição adversa 2: Dois nó slave cairam
 
 1. Restaurar todos os containers
-2. Roda o código
+2. Roda o código com `./passo_4.sh`
 3. Derruba o container `sudo docker-compose down hadoop-slave-1`
 4. Derruba o container `sudo docker-compose down hadoop-slave-2`
 5. Acompanhar logs no `http://0.0.0.0:8088`
@@ -107,7 +107,7 @@ Seguindo os passos anteriores, esperamos agora `1.06 * 3` MB.
 
 
 1. Restaurar todos os containers
-2. Roda o código
-4. Derruba o container `sudo docker-compose down hadoop-master`
-5. Acompanhar logs no `http://0.0.0.0:8088` (que é a porta pra web interface do slave-1)
+2. Roda o código com `./passo_4.sh`
+3. Derruba o container `sudo docker-compose down hadoop-master`
+4. Acompanhar logs no `http://0.0.0.0:8088` (que é a porta pra web interface do slave-1)
 
