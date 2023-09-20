@@ -53,32 +53,26 @@ Seguindo os passos anteriores, esperamos agora `1.06 * 3` MB.
 
 **Metodologia:** escreve o codigo java pra fazer isso, faz um `.jar` do codigo e roda ele no cluster.
 
-Inicialmente vou tentar compilar e rodar o wordcount na pasta `sources/`.
-Vou levar o código pro container, compilar e rodar o comando do mapreduce
+1. Copia com `sudo docker cp sources/WordCount/ hadoop-slave-1:/WordCount`
 
-1. Copiei com `sudo docker cp sources/WordCount/ hadoop-slave-1:/WordCount`
-2. Entrei no container hadoop-slave-1 com `sudo docker-compose exec hadoop-slave-1 bash`
-3. ...
+2. Entra no container hadoop-slave-1 com `sudo docker-compose exec hadoop-slave-1 bash`
 
-Instruções que achei na net para compilar:
-$ hdfs dfs -mkdir /input
-$ hdfs dfs -put ./input/* /input
-$ cd src/main/java
-$ hadoop com.sun.tools.javac.Main *.java
-$ jar cf recommender.jar *.class
-$ hadoop jar recommender.jar Driver /input /output/userRating /output/cooccurrenceGenerator /output/cooccurrenceNormal /output/userAverageRating /output/cellMultiplication /output/cellSum
+3. Entra na pasta `/WordCount` com `cd /WordCount`
 
-Vou tentar utilizar o maven, por causa do arquivo `pom.xml` que fica no código do WordCount
+4. Cria pasta de input no HDFS
+`$HADOOP_PREFIX/bin/hdfs dfs -mkdir /input`
 
-pra isso vamos intalar com `sudo yum install maven java-1.8.0-openjdk`
+1. Insere o arquivo de input em `/input/input.txt` no HDFS.
+`$HADOOP_PREFIX/bin/hdfs dfs -put input.txt /input`
 
+1. Compila java
+`javac -classpath ${HADOOP_PREFIX}/share/hadoop/common/hadoop-common-2.7.0.jar:${HADOOP_PREFIX}/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.7.0.jar:${HADOOP_PREFIX}/share/hadoop/common/lib/* Wordcount.java &>f`
 
-```
-cd src/main/java
-hadoop com.sun.tools.javac.Main *.java
-```
+1. Criar .jar do java compilado
+`jar cvf wordcount.jar *.class`
 
-
+1. Roda o .jar
+`$HADOOP_PREFIX/bin/hadoop jar wordcount.jar Wordcount /input/input.txt output`
 
 ## Atividade 4 - Teste de tolerância a faltas e escalabilidade da aplicação
 
