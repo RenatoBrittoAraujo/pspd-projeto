@@ -27,3 +27,8 @@ sudo docker-compose exec hadoop-master /bin/bash -c 'cd WordCount; javac -classp
 echo "-----> rodando word count"
 sudo docker-compose exec hadoop-master /bin/bash -c 'cd WordCount && $HADOOP_PREFIX/bin/hadoop jar wordcount.jar Wordcount /input/input.txt output'
 
+echo "-----> copia output do hdfs dentro do container para o container"
+sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -copyToLocal output/part-r-00000'
+
+echo "-----> copia output do container docker para sistema local"
+sudo docker cp hadoop-master:/part-r-00000 .
