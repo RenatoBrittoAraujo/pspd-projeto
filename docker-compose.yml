@@ -16,6 +16,7 @@ services:
       - ./word_generator/:/word_generator/ # Facilitate inserting code into system
     ports:
       - 50070:50070 # Name Node
+      - 50075:50075 # Name Node
       - 19888:19888 # Resource Manager
       - 8088:8088 # MapReduce JobHistory Server
       - 9000:9000 # ????
