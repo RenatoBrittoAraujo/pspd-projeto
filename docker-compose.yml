@@ -11,36 +11,41 @@ services:
     container_name: hadoop-master
     image: sequenceiq/hadoop-docker:2.7.0
     volumes:
-      - ./hadoop_conf/:/usr/local/hadoop/etc/hadoop/
+      - ./hadoop_conf_master/:/usr/local/hadoop/etc/hadoop/
+      - ./sources/WordCount/:/WordCount # Facilitate inserting code into system
+      - ./word_generator/:/word_generator/ # Facilitate inserting code into system
     ports:
       - 50070:50070 # Name Node
       - 19888:19888 # Resource Manager
       - 8088:8088 # MapReduce JobHistory Server
+      - 9000:9000 # ????
     networks:
       hadoop_net:
-          ipv4_address: 172.20.0.2
+        ipv4_address: 172.20.0.2
     # network_mode: host
   
   hadoop-slave-1:
     container_name: hadoop-slave-1
     image: sequenceiq/hadoop-docker:2.7.0
     volumes:
-      - ./hadoop_conf/:/usr/local/hadoop/etc/hadoop/
-      - ./sources/WordCount/:/WordCount # Facilitate inserting code into system
-      - ./word_generator/:/word_generator/ # Facilitate inserting code into system
-    ports:
-      - 50071:50070 # Name Node
-      - 19889:19888 # Resource Manager
-      - 8089:8088 # MapReduce JobHistory Server
+      - ./hadoop_conf_slave_1/:/usr/local/hadoop/etc/hadoop/
+      # - ./sources/WordCount/:/WordCount # Facilitate inserting code into system
+      # - ./word_generator/:/word_generator/ # Facilitate inserting code into system
+    # ports:
+    #   - 50071:50070 # Name Node
+    #   - 19889:19888 # Resource Manager
+    #   - 8089:8088 # MapReduce JobHistory Server
+    hostname: hadoop-slave-1
     networks:
         hadoop_net:
-            ipv4_address: 172.20.0.3
+          ipv4_address: 172.20.0.3
 
-  hadoop-slave-2:
-    container_name: hadoop-slave-2
-    image: sequenceiq/hadoop-docker:2.7.0
-    volumes:
-      - ./hadoop_conf/:/usr/local/hadoop/etc/hadoop/
-    networks:
-      hadoop_net:
-          ipv4_address: 172.20.0.4
+  # hadoop-slave-2:
+  #   container_name: hadoop-slave-2
+  #   image: sequenceiq/hadoop-docker:2.7.0
+  #   volumes:
+  #     - ./hadoop_conf_slave_2/:/usr/local/hadoop/etc/hadoop/
+  #   hostname: hadoop-slave-2
+  #   networks:
+  #     hadoop_net:
+  #       ipv4_address: 172.20.0.4
