@@ -10,10 +10,12 @@ sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/sbin/start-d
 sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/sbin/start-yarn.sh'
 
 echo "-----> ajustando hdfs para receber resposta (removendo arquivos antigos)"
+sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfsadmin -safemode leave' ;\
 sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -mkdir /input' ;\
-sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -rm /output/*' ;\
+sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -rm /input/input.txt' ;\
 sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -rm /output/*' ;\
 sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -rm /user/root/output/*' ;\
+sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -rmdir /user/root/output' ;\
 
 # sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -rm /input/input.txt' ;\
 
@@ -29,7 +31,8 @@ echo "-----> rodando word count"
 sudo docker-compose exec hadoop-master /bin/bash -c 'cd WordCount && $HADOOP_PREFIX/bin/hadoop jar wordcount.jar Wordcount /input/input.txt output'
 
 echo "-----> copia output do hdfs dentro do container para o container"
-sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -copyToLocal /user/root/output'
+sudo docker-compose exec hadoop-master /bin/bash -c 'rm part-r-00000'
+sudo docker-compose exec hadoop-master /bin/bash -c '$HADOOP_PREFIX/bin/hdfs dfs -copyToLocal /user/root/output/part-r-00000 .'
 
 echo "-----> copia output do container docker para sistema local"
 sudo docker cp hadoop-master:/part-r-00000 .
